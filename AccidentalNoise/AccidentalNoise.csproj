@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4995FB92-3B05-4972-94AA-DF8251220B8B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AccidentalNoise</RootNamespace>
+    <AssemblyName>AccidentalNoise</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cache.cs" />
+    <Compile Include="CellularCache.cs" />
+    <Compile Include="CellularGenerator.cs" />
+    <Compile Include="Enums\BasisType.cs" />
+    <Compile Include="Enums\CombinerType.cs" />
+    <Compile Include="Enums\FractalType.cs" />
+    <Compile Include="Enums\InterpolationType.cs" />
+    <Compile Include="Enums\MappingMode.cs" />
+    <Compile Include="Implicit\ImplicitAutoCorrect.cs" />
+    <Compile Include="Implicit\ImplicitBasisFunction.cs" />
+    <Compile Include="Implicit\ImplicitBias.cs" />
+    <Compile Include="Implicit\ImplicitBlend.cs" />
+    <Compile Include="Implicit\ImplicitBrightContrast.cs" />
+    <Compile Include="Implicit\ImplicitCache.cs" />
+    <Compile Include="Implicit\ImplicitCeiling.cs" />
+    <Compile Include="Implicit\ImplicitCellular.cs" />
+    <Compile Include="Implicit\ImplicitClamp.cs" />
+    <Compile Include="Implicit\ImplicitCombiner.cs" />
+    <Compile Include="Implicit\ImplicitConstant.cs" />
+    <Compile Include="Implicit\ImplicitCos.cs" />
+    <Compile Include="Implicit\ImplicitFloor.cs" />
+    <Compile Include="Implicit\ImplicitFractal.cs" />
+    <Compile Include="Implicit\ImplicitGain.cs" />
+    <Compile Include="Implicit\ImplicitGradient.cs" />
+    <Compile Include="Implicit\ImplicitInvert.cs" />
+    <Compile Include="Implicit\ImplicitLog.cs" />
+    <Compile Include="Implicit\ImplicitModuleBase.cs" />
+    <Compile Include="Implicit\ImplicitPow.cs" />
+    <Compile Include="Implicit\ImplicitRotateDomain.cs" />
+    <Compile Include="Implicit\ImplicitScaleDomain.cs" />
+    <Compile Include="Implicit\ImplicitScaleOffset.cs" />
+    <Compile Include="Implicit\ImplicitSelect.cs" />
+    <Compile Include="Implicit\ImplicitSin.cs" />
+    <Compile Include="Implicit\ImplicitSphere.cs" />
+    <Compile Include="Implicit\ImplicitTan.cs" />
+    <Compile Include="Implicit\ImplicitTiers.cs" />
+    <Compile Include="Implicit\ImplicitTranslatedDomain.cs" />
+    <Compile Include="Mapping.cs" />
+    <Compile Include="MappingRanges.cs" />
+    <Compile Include="Noise.cs" />
+    <Compile Include="NoiseLookupTable.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{b3b8c83b-29b9-4d1a-b301-ca05879c5772}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

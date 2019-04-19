@@ -3,13 +3,16 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 
-namespace Expansion
+namespace HML.Expansion
 {
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
     public class Game1 : Game
     {
+        private Texture2D smile;
+
+
         private FrameCounter _frameCounter = new FrameCounter();
 
         private AnimatedSprite animatedSprite;
@@ -48,10 +51,10 @@ namespace Expansion
             graphics = new GraphicsDeviceManager(this);
 
             //Unlock framerate.
-            //this.IsFixedTimeStep = false;
-            //graphics.SynchronizeWithVerticalRetrace = false;
-            //graphics.ApplyChanges();
-            
+            this.IsFixedTimeStep = false;
+            graphics.SynchronizeWithVerticalRetrace = false;
+            graphics.ApplyChanges();
+
             Content.RootDirectory = "Content";
         }
 
@@ -90,6 +93,8 @@ namespace Expansion
             blue = Content.Load<Texture2D>("blue");
             green = Content.Load<Texture2D>("green");
             red = Content.Load<Texture2D>("red");
+
+            smile = Content.Load<Texture2D>("test2");
         }
 
         /// <summary>
@@ -176,13 +181,34 @@ namespace Expansion
                 0f
                 );
 
-            spriteBatch.DrawString(font, fps, new Vector2(100, 100), Color.Black);
+            spriteBatch.DrawString(font, fps, new Vector2(10, 10), Color.White);
+            Console.WriteLine(fps);
 
             Vector2 location = new Vector2(400, 240);
             Rectangle sourceRectangle = new Rectangle(0, 0, arrow.Width, arrow.Height);
             Vector2 origin = new Vector2(arrow.Width / 2, arrow.Height / 2);
 
             spriteBatch.Draw(arrow, location, sourceRectangle, Color.White, angle, origin, 1.0f, SpriteEffects.None, 1);
+
+            float tileSize = 8;
+
+            int tilesWidth = (int)Math.Round(graphics.PreferredBackBufferWidth / tileSize);
+            int tilesHeight = (int)Math.Round(graphics.PreferredBackBufferHeight / tileSize);
+
+            int totalSprites = 0;
+
+            for (int i = 0; i < tilesWidth; i++)
+            {
+                for (int j = 0; j < tilesHeight; j++)
+                {
+                    spriteBatch.Draw(smile, new Vector2(i * tileSize, j * tileSize), Color.White);
+                    totalSprites++;
+                }
+            }
+
+            Console.WriteLine(totalSprites);
+
+            spriteBatch.End();
 
             Vector2 bluePosition = new Vector2(
                 (float)Math.Cos(blueAngle) * distance,
@@ -195,8 +221,6 @@ namespace Expansion
                             (float)Math.Sin(redAngle) * distance);
 
             Vector2 center = new Vector2(300, 140);
-
-            spriteBatch.End();
 
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
 

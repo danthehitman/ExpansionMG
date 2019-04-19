@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Expansion
+namespace HML.Expansion
 {
     /// <summary>
     /// The main class.

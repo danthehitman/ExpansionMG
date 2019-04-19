@@ -9,7 +9,7 @@
     <ProjectGuid>{7AAA0C86-82C3-467B-84B7-CADD852E200B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Expansion</RootNamespace>
+    <RootNamespace>HML.Expansion</RootNamespace>
     <AssemblyName>Expansion</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>DesktopGL</MonoGamePlatform>
@@ -42,8 +42,6 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AnimatedSprite.cs" />
-    <Compile Include="FrameCounter.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,6 +108,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\ball.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core Game Library\Core Game Library.csproj">
+      <Project>{a835f60d-67c0-40a9-a094-6f3602dceacc}</Project>
+      <Name>Core Game Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
