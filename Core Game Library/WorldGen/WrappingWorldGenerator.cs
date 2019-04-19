@@ -11,7 +11,7 @@ namespace HML.Expansion.WorldGen
         protected ImplicitCombiner HeatMap;
         protected ImplicitFractal MoistureMap;
 
-        public WrappingWorldGenerator(World world, int height, int width, int seed) : base(world, height, width, seed)
+        public WrappingWorldGenerator(GameWorld world, int height, int width, int seed) : base(world, height, width, seed)
         {
         }
 
@@ -99,19 +99,19 @@ namespace HML.Expansion.WorldGen
 
         protected override BaseTile GetTop(BaseTile t)
         {
-            return Tiles[t.X, MathHelper.Mod(t.Y - 1, height)];
+            return Tiles[t.X, MathUtilities.Mod(t.Y - 1, height)];
         }
         protected override BaseTile GetBottom(BaseTile t)
         {
-            return Tiles[t.X, MathHelper.Mod(t.Y + 1, height)];
+            return Tiles[t.X, MathUtilities.Mod(t.Y + 1, height)];
         }
         protected override BaseTile GetLeft(BaseTile t)
         {
-            return Tiles[MathHelper.Mod(t.X - 1, height), t.Y];
+            return Tiles[MathUtilities.Mod(t.X - 1, height), t.Y];
         }
         protected override BaseTile GetRight(BaseTile t)
         {
-            return Tiles[MathHelper.Mod(t.X + 1, height), t.Y];
+            return Tiles[MathUtilities.Mod(t.X + 1, height), t.Y];
         }
     }
 }

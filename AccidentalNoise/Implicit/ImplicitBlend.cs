@@ -23,7 +23,7 @@ namespace AccidentalNoise
             var v1 = this.Low.Get(x, y);
             var v2 = this.High.Get(x, y);
             var blend = (this.Source.Get(x, y) + 1.0) * 0.5;
-            return MathHelper.Lerp(blend, v1, v2);
+            return MathUtilities.Lerp(blend, v1, v2);
         }
 
         public override Double Get(Double x, Double y, Double z)
@@ -31,7 +31,7 @@ namespace AccidentalNoise
             var v1 = this.Low.Get(x, y, z);
             var v2 = this.High.Get(x, y, z);
             var blend = this.Source.Get(x, y, z);
-			return MathHelper.Lerp(blend, v1, v2);
+			return MathUtilities.Lerp(blend, v1, v2);
         }
 
         public override Double Get(Double x, Double y, Double z, Double w)
@@ -39,7 +39,7 @@ namespace AccidentalNoise
             var v1 = this.Low.Get(x, y, z, w);
             var v2 = this.High.Get(x, y, z, w);
             var blend = this.Source.Get(x, y, z, w);
-			return MathHelper.Lerp(blend, v1, v2);
+			return MathUtilities.Lerp(blend, v1, v2);
         }
 
         public override Double Get(Double x, Double y, Double z, Double w, Double u, Double v)
@@ -47,7 +47,7 @@ namespace AccidentalNoise
             var v1 = this.Low.Get(x, y, z, w, u, v);
             var v2 = this.High.Get(x, y, z, w, u, v);
             var blend = this.Source.Get(x, y, z, w, u, v);
-			return MathHelper.Lerp(blend, v1, v2);
+			return MathUtilities.Lerp(blend, v1, v2);
         }
     }
 }

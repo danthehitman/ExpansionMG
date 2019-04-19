@@ -177,7 +177,7 @@ namespace AccidentalNoise
                     v = FractionalBrownianMotion_Get(x, y);
                     break;
             }
-			return MathHelper.Clamp(v, -1.0, 1.0);
+			return MathUtilities.Clamp(v, -1.0, 1.0);
         }
 
         public override Double Get(Double x, Double y, Double z)
@@ -204,7 +204,7 @@ namespace AccidentalNoise
                     val = FractionalBrownianMotion_Get(x, y, z);
                     break;
             }
-			return MathHelper.Clamp(val, -1.0, 1.0);
+			return MathUtilities.Clamp(val, -1.0, 1.0);
         }
 
         public override Double Get(Double x, Double y, Double z, Double w)
@@ -231,7 +231,7 @@ namespace AccidentalNoise
                     val = FractionalBrownianMotion_Get(x, y, z, w);
                     break;
             }
-			return MathHelper.Clamp(val, -1.0, 1.0);
+			return MathUtilities.Clamp(val, -1.0, 1.0);
         }
 
         public override Double Get(Double x, Double y, Double z, Double w, Double u, Double v)
@@ -259,7 +259,7 @@ namespace AccidentalNoise
                     break;
             }
 
-			return MathHelper.Clamp(val, -1.0, 1.0);
+			return MathUtilities.Clamp(val, -1.0, 1.0);
         }
 
 

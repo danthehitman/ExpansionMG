@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Common;
+using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -213,27 +215,27 @@ namespace HML.Expansion.WorldGen
 
         private void AddMoisture(BaseTile t, int radius)
         {
-            int startx = MathHelper.Mod(t.X - radius, width);
-            int endx = MathHelper.Mod(t.X + radius, width);
+            int startx = MathUtilities.Mod(t.X - radius, width);
+            int endx = MathUtilities.Mod(t.X + radius, width);
             Vector2 center = new Vector2(t.X, t.Y);
             int curr = radius;
 
             while (curr > 0)
             {
 
-                int x1 = MathHelper.Mod(t.X - curr, width);
-                int x2 = MathHelper.Mod(t.X + curr, width);
+                int x1 = MathUtilities.Mod(t.X - curr, width);
+                int x2 = MathUtilities.Mod(t.X + curr, width);
                 int y = t.Y;
 
                 AddMoisture(Tiles[x1, y], 0.025f / (center - new Vector2(x1, y)).magnitude);
 
                 for (int i = 0; i < curr; i++)
                 {
-                    AddMoisture(Tiles[x1, MathHelper.Mod(y + i + 1, height)], 0.025f / (center - new Vector2(x1, MathHelper.Mod(y + i + 1, height))).magnitude);
-                    AddMoisture(Tiles[x1, MathHelper.Mod(y - (i + 1), height)], 0.025f / (center - new Vector2(x1, MathHelper.Mod(y - (i + 1), height))).magnitude);
+                    AddMoisture(Tiles[x1, MathUtilities.Mod(y + i + 1, height)], 0.025f / (center - new Vector2(x1, MathUtilities.Mod(y + i + 1, height))).magnitude);
+                    AddMoisture(Tiles[x1, MathUtilities.Mod(y - (i + 1), height)], 0.025f / (center - new Vector2(x1, MathUtilities.Mod(y - (i + 1), height))).magnitude);
 
-                    AddMoisture(Tiles[x2, MathHelper.Mod(y + i + 1, height)], 0.025f / (center - new Vector2(x2, MathHelper.Mod(y + i + 1, height))).magnitude);
-                    AddMoisture(Tiles[x2, MathHelper.Mod(y - (i + 1), height)], 0.025f / (center - new Vector2(x2, MathHelper.Mod(y - (i + 1), height))).magnitude);
+                    AddMoisture(Tiles[x2, MathUtilities.Mod(y + i + 1, height)], 0.025f / (center - new Vector2(x2, MathUtilities.Mod(y + i + 1, height))).magnitude);
+                    AddMoisture(Tiles[x2, MathUtilities.Mod(y - (i + 1), height)], 0.025f / (center - new Vector2(x2, MathUtilities.Mod(y - (i + 1), height))).magnitude);
                 }
                 curr--;
             }

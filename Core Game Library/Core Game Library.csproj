@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MonoGame.Framework, Version=3.7.1.189, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\MonoGame\v3.0\Assemblies\DesktopGL\MonoGame.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,7 +45,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameWorld.cs" />
+    <Compile Include="Graphics\AnimatedSprite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\FrameCounter.cs" />
+    <Compile Include="WorldGen\Generator.cs" />
+    <Compile Include="WorldGen\MapData.cs" />
+    <Compile Include="WorldGen\River.cs" />
+    <Compile Include="WorldGen\TextureGenerator.cs" />
+    <Compile Include="WorldGen\TileGroup.cs" />
+    <Compile Include="WorldGen\WorldGenEnums.cs" />
+    <Compile Include="WorldGen\WrappingWorldGenerator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AccidentalNoise\AccidentalNoise.csproj">
+      <Project>{4995fb92-3b05-4972-94aa-df8251220b8b}</Project>
+      <Name>AccidentalNoise</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{b3b8c83b-29b9-4d1a-b301-ca05879c5772}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -2,7 +2,7 @@
 
 namespace Common
 {
-    public static class MathHelper
+    public static class MathUtilities
     {
         public static double Clamp(double v, double l, double h)
         {

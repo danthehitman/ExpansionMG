@@ -28,7 +28,7 @@ namespace AccidentalNoise
             var t = val * numsteps - tb;
             tb /= numsteps;
             tt /= numsteps;
-			var u = (this.Smooth ? MathHelper.QuinticBlend(t) : 0.0);
+			var u = (this.Smooth ? MathUtilities.QuinticBlend(t) : 0.0);
             return tb + u * (tt - tb);
         }
 
@@ -42,7 +42,7 @@ namespace AccidentalNoise
             var t = val * numsteps - tb;
             tb /= numsteps;
             tt /= numsteps;
-			var u = (this.Smooth ? MathHelper.QuinticBlend(t) : 0.0);
+			var u = (this.Smooth ? MathUtilities.QuinticBlend(t) : 0.0);
             return tb + u * (tt - tb);
         }
 
@@ -56,7 +56,7 @@ namespace AccidentalNoise
             var t = val * numsteps - tb;
             tb /= numsteps;
             tt /= numsteps;
-			var u = (this.Smooth ? MathHelper.QuinticBlend(t) : 0.0);
+			var u = (this.Smooth ? MathUtilities.QuinticBlend(t) : 0.0);
             return tb + u * (tt - tb);
         }
 
@@ -70,7 +70,7 @@ namespace AccidentalNoise
             var t = val * numsteps - tb;
             tb /= numsteps;
             tt /= numsteps;
-			var s = (this.Smooth ? MathHelper.QuinticBlend(t) : 0.0);
+			var s = (this.Smooth ? MathUtilities.QuinticBlend(t) : 0.0);
             return tb + s * (tt - tb);
         }
     }

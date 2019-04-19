@@ -45,8 +45,8 @@ namespace AccidentalNoise
                 // Lies within falloff area.
                 var lower = threshold - falloff;
                 var upper = threshold + falloff;
-                var blend = MathHelper.QuinticBlend((value - lower) / (upper - lower));
-				return MathHelper.Lerp(blend, this.Low.Get(x, y), this.High.Get(x, y));
+                var blend = MathUtilities.QuinticBlend((value - lower) / (upper - lower));
+				return MathUtilities.Lerp(blend, this.Low.Get(x, y), this.High.Get(x, y));
             }
 
             return (value < threshold ? this.Low.Get(x, y) : this.High.Get(x, y));
@@ -73,8 +73,8 @@ namespace AccidentalNoise
                 // Lies within falloff area.
                 var lower = threshold - falloff;
                 var upper = threshold + falloff;
-				var blend = MathHelper.QuinticBlend((value - lower) / (upper - lower));
-				return MathHelper.Lerp(blend, this.Low.Get(x, y, z), this.High.Get(x, y, z));
+				var blend = MathUtilities.QuinticBlend((value - lower) / (upper - lower));
+				return MathUtilities.Lerp(blend, this.Low.Get(x, y, z), this.High.Get(x, y, z));
             }
 
             return (value < threshold ? this.Low.Get(x, y, z) : this.High.Get(x, y, z));
@@ -101,8 +101,8 @@ namespace AccidentalNoise
                 // Lies within falloff area.
                 var lower = threshold - falloff;
                 var upper = threshold + falloff;
-				var blend = MathHelper.QuinticBlend((value - lower) / (upper - lower));
-				return MathHelper.Lerp(blend, this.Low.Get(x, y, z, w), this.High.Get(x, y, z, w));
+				var blend = MathUtilities.QuinticBlend((value - lower) / (upper - lower));
+				return MathUtilities.Lerp(blend, this.Low.Get(x, y, z, w), this.High.Get(x, y, z, w));
             }
 
             return value < threshold ? this.Low.Get(x, y, z, w) : this.High.Get(x, y, z, w);
@@ -129,8 +129,8 @@ namespace AccidentalNoise
                 // Lies within falloff area.
                 var lower = threshold - falloff;
                 var upper = threshold + falloff;
-				var blend = MathHelper.QuinticBlend((value - lower) / (upper - lower));
-				return MathHelper.Lerp(blend, this.Low.Get(x, y, z, w, u, v), this.High.Get(x, y, z, w, u, v));
+				var blend = MathUtilities.QuinticBlend((value - lower) / (upper - lower));
+				return MathUtilities.Lerp(blend, this.Low.Get(x, y, z, w, u, v), this.High.Get(x, y, z, w, u, v));
             }
 
             return (value < threshold ? this.Low.Get(x, y, z, w, u, v) : this.High.Get(x, y, z, w, u, v));
