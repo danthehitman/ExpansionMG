@@ -1,8 +1,9 @@
 ﻿using AccidentalNoise;
-using Common;
+using HML.Expansion.Common;
+using HML.Expansion.WorldMap.Tile;
 using System;
 
-namespace HML.Expansion.WorldGen
+namespace HML.Expansion.WorldMap
 {
     public class WrappingWorldGenerator : Generator
     {
@@ -61,24 +62,24 @@ namespace HML.Expansion.WorldGen
 
                     // WRAP ON BOTH AXIS
                     // Noise range
-                    double x1 = 0, x2 = 2;
-                    double y1 = 0, y2 = 2;
-                    double dx = x2 - x1;
-                    double dy = y2 - y1;
+                    float x1 = 0, x2 = 2;
+                    float y1 = 0, y2 = 2;
+                    float dx = x2 - x1;
+                    float dy = y2 - y1;
 
                     // Sample noise at smaller intervals
-                    double s = x / (float)width;
-                    double t = y / (float)height;
+                    float s = x / (float)width;
+                    float t = y / (float)height;
 
                     // Calculate our 4D coordinates
-                    double nx = x1 + Math.Cos(s * 2 * Math.PI) * dx / (2 * Math.PI);
-                    double ny = y1 + Math.Cos(t * 2 * Math.PI) * dy / (2 * Math.PI);
-                    double nz = x1 + Math.Sin(s * 2 * Math.PI) * dx / (2 * Math.PI);
-                    double nw = y1 + Math.Sin(t * 2 * Math.PI) * dy / (2 * Math.PI);
+                    float nx = (float)(x1 + Math.Cos(s * 2 * Math.PI) * dx / (2 * Math.PI));
+                    float ny = (float)(y1 + Math.Cos(t * 2 * Math.PI) * dy / (2 * Math.PI));
+                    float nz = (float)(x1 + Math.Sin(s * 2 * Math.PI) * dx / (2 * Math.PI));
+                    float nw = (float)(y1 + Math.Sin(t * 2 * Math.PI) * dy / (2 * Math.PI));
 
-                    double heightValue = HeightMap.Get(nx, ny, nz, nw);
-                    double heatValue = HeatMap.Get(nx, ny, nz, nw);
-                    double moistureValue = MoistureMap.Get(nx, ny, nz, nw);
+                    float heightValue = (float)HeightMap.Get(nx, ny, nz, nw);
+                    float heatValue = (float)HeatMap.Get(nx, ny, nz, nw);
+                    float moistureValue = (float)MoistureMap.Get(nx, ny, nz, nw);
 
                     // keep track of the max and min values found
                     if (heightValue > HeightData.Max) HeightData.Max = heightValue;

@@ -1,12 +1,11 @@
-﻿using Common;
+﻿using HML.Expansion.Common;
+using HML.Expansion.WorldMap.Tile;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace HML.Expansion.WorldGen
+namespace HML.Expansion.WorldMap
 {
 
     public abstract class Generator
@@ -23,7 +22,7 @@ namespace HML.Expansion.WorldGen
         //Original Config
         //Height Map
         public static int TerrainOctaves = 6;
-        public static double TerrainFrequency = 1.25;
+        public static float TerrainFrequency = 1.25f;
         public static float DeepWater = 0.2f;
         public static float ShallowWater = 0.4f;
         public static float Shore = 0.43f;
@@ -47,7 +46,7 @@ namespace HML.Expansion.WorldGen
         //Original
         //protected int HeatOctaves = 4;
         protected int HeatOctaves = 4;
-        protected double HeatFrequency = 3.0;
+        protected float HeatFrequency = 3.0f;
         protected float ColdestValue = 0.05f;
         protected float ColderValue = 0.18f;
         protected float ColdValue = 0.4f;
@@ -57,7 +56,7 @@ namespace HML.Expansion.WorldGen
         //Moisture Map
         protected int MoistureOctaves = 4;
         //Bumping this up made a big difference for more grasslands and deserts
-        protected double MoistureFrequency = 4.0;
+        protected float MoistureFrequency = 4.0f;
         protected float DryerValue = 0.27f;
         protected float DryValue = 0.4f;
         protected float WetValue = 0.6f;
@@ -96,12 +95,6 @@ namespace HML.Expansion.WorldGen
         protected List<River> Rivers = new List<River>();
         protected List<RiverGroup> RiverGroups = new List<RiverGroup>();
 
-        // Our texture output gameobject
-        protected MeshRenderer HeightMapRenderer;
-        protected MeshRenderer HeatMapRenderer;
-        protected MeshRenderer MoistureMapRenderer;
-        protected MeshRenderer BiomeMapRenderer;
-
         protected BiomeType[,] BiomeTable = new BiomeType[6, 6] {   
         //COLDEST        //COLDER          //COLD                  //HOT                          //HOTTER                       //HOTTEST
         { BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,    BiomeType.Desert,              BiomeType.Desert,              BiomeType.Desert },              //DRYEST
@@ -132,7 +125,7 @@ namespace HML.Expansion.WorldGen
             MinRiverLength = (width / 32) * 3;
             MaxRiverSize = (width / 128);
 
-            Debug.Log("RiverCount: " + RiverCount + " MinRiverTurns: " + MinRiverTurns + " MinRiverLength: " +
+            Console.WriteLine("RiverCount: " + RiverCount + " MinRiverTurns: " + MinRiverTurns + " MinRiverLength: " +
                 MinRiverLength + " MaxRiverSize: " + MaxRiverSize);
 
             //Generate a random seed if none is provided.
@@ -227,15 +220,15 @@ namespace HML.Expansion.WorldGen
                 int x2 = MathUtilities.Mod(t.X + curr, width);
                 int y = t.Y;
 
-                AddMoisture(Tiles[x1, y], 0.025f / (center - new Vector2(x1, y)).magnitude);
+                AddMoisture(Tiles[x1, y], 0.025f / (center - new Vector2(x1, y)).Length());
 
                 for (int i = 0; i < curr; i++)
                 {
-                    AddMoisture(Tiles[x1, MathUtilities.Mod(y + i + 1, height)], 0.025f / (center - new Vector2(x1, MathUtilities.Mod(y + i + 1, height))).magnitude);
-                    AddMoisture(Tiles[x1, MathUtilities.Mod(y - (i + 1), height)], 0.025f / (center - new Vector2(x1, MathUtilities.Mod(y - (i + 1), height))).magnitude);
+                    AddMoisture(Tiles[x1, MathUtilities.Mod(y + i + 1, height)], 0.025f / (center - new Vector2(x1, MathUtilities.Mod(y + i + 1, height))).Length());
+                    AddMoisture(Tiles[x1, MathUtilities.Mod(y - (i + 1), height)], 0.025f / (center - new Vector2(x1, MathUtilities.Mod(y - (i + 1), height))).Length());
 
-                    AddMoisture(Tiles[x2, MathUtilities.Mod(y + i + 1, height)], 0.025f / (center - new Vector2(x2, MathUtilities.Mod(y + i + 1, height))).magnitude);
-                    AddMoisture(Tiles[x2, MathUtilities.Mod(y - (i + 1), height)], 0.025f / (center - new Vector2(x2, MathUtilities.Mod(y - (i + 1), height))).magnitude);
+                    AddMoisture(Tiles[x2, MathUtilities.Mod(y + i + 1, height)], 0.025f / (center - new Vector2(x2, MathUtilities.Mod(y + i + 1, height))).Length());
+                    AddMoisture(Tiles[x2, MathUtilities.Mod(y - (i + 1), height)], 0.025f / (center - new Vector2(x2, MathUtilities.Mod(y - (i + 1), height))).Length());
                 }
                 curr--;
             }
@@ -423,7 +416,7 @@ namespace HML.Expansion.WorldGen
                 }
             }
         End:
-            Debug.Log(rivercount.ToString() + " : " + attempts);
+            Console.WriteLine(rivercount.ToString() + " : " + attempts);
         }
 
         // Dig river based on a parent river vein
@@ -687,20 +680,20 @@ namespace HML.Expansion.WorldGen
 
             // override flow direction if a tile is significantly lower
             if (direction == Direction.Left)
-                if (Mathf.Abs(rightValue - leftValue) < 0.1f)
+                if (Math.Abs(rightValue - leftValue) < 0.1f)
                     rightValue = int.MaxValue;
             if (direction == Direction.Right)
-                if (Mathf.Abs(rightValue - leftValue) < 0.1f)
+                if (Math.Abs(rightValue - leftValue) < 0.1f)
                     leftValue = int.MaxValue;
             if (direction == Direction.Top)
-                if (Mathf.Abs(topValue - bottomValue) < 0.1f)
+                if (Math.Abs(topValue - bottomValue) < 0.1f)
                     bottomValue = int.MaxValue;
             if (direction == Direction.Bottom)
-                if (Mathf.Abs(topValue - bottomValue) < 0.1f)
+                if (Math.Abs(topValue - bottomValue) < 0.1f)
                     topValue = int.MaxValue;
 
             // find mininum
-            float min = Mathf.Min(Mathf.Min(Mathf.Min(leftValue, rightValue), topValue), bottomValue);
+            float min = Math.Min(Math.Min(Math.Min(leftValue, rightValue), topValue), bottomValue);
 
             // if no minimum found - exit
             if (min == int.MaxValue)

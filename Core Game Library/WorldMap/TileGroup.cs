@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using HML.Expansion.WorldMap.Tile;
 
-namespace HML.Expansion.WorldGen
+namespace HML.Expansion.WorldMap
 {
     public enum TileGroupType
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common
+namespace HML.Expansion.Common
 {
     public static class MathUtilities
     {
@@ -42,6 +42,16 @@ namespace Common
         {
             int r = x % m;
             return r < 0 ? r + m : r;
+        }
+
+        public static float GetFloatAtPercentBetween(float min, float max, float percentage)
+        {
+            return (max - min) * percentage;
+        }
+
+        public static int GetIntAtPercentBetween(int min, int max, int percentage)
+        {
+            return (max - min) * percentage;
         }
 
     }

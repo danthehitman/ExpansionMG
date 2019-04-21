@@ -110,6 +110,10 @@
     <Content Include="Content\ball.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{b3b8c83b-29b9-4d1a-b301-ca05879c5772}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core Game Library\Core Game Library.csproj">
       <Project>{a835f60d-67c0-40a9-a094-6f3602dceacc}</Project>
       <Name>Core Game Library</Name>

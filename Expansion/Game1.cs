@@ -12,8 +12,11 @@ namespace HML.Expansion
     /// </summary>
     public class Game1 : Game
     {
-        private Texture2D smile;
+        GameWorld world;
 
+        Random random = new Random();
+
+        private Texture2D smile;
 
         private FrameCounter _frameCounter = new FrameCounter();
 
@@ -50,6 +53,8 @@ namespace HML.Expansion
         
         public Game1()
         {
+            world = new GameWorld();
+
             graphics = new GraphicsDeviceManager(this);
 
             //Unlock framerate.
@@ -161,81 +166,98 @@ namespace HML.Expansion
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
             spriteBatch.Begin();
 
-            spriteBatch.Draw(
-                ballTexture,
-                ballPosition,
-                null,
-                Color.White,
-                0f,
-                new Vector2(ballTexture.Width / 2, ballTexture.Height / 2),
-                Vector2.One,
-                SpriteEffects.None,
-                0f
-                );
-
-            spriteBatch.DrawString(font, fps, new Vector2(10, 10), Color.White);
-            Console.WriteLine(fps);
-
-            Vector2 location = new Vector2(400, 240);
-            Rectangle sourceRectangle = new Rectangle(0, 0, arrow.Width, arrow.Height);
-            Vector2 origin = new Vector2(arrow.Width / 2, arrow.Height / 2);
-
-            spriteBatch.Draw(arrow, location, sourceRectangle, Color.White, angle, origin, 1.0f, SpriteEffects.None, 1);
-
-            float tileSize = 8;
-
-            int tilesWidth = (int)Math.Round(graphics.PreferredBackBufferWidth / tileSize);
-            int tilesHeight = (int)Math.Round(graphics.PreferredBackBufferHeight / tileSize);
-
-            int totalSprites = 0;
-
-            for (int i = 0; i < tilesWidth; i++)
+            for (int x = 0; x < 100; x++)
             {
-                for (int j = 0; j < tilesHeight; j++)
+                for (int y = 0; y < 100; y++)
                 {
-                    spriteBatch.Draw(smile, new Vector2(i * tileSize, j * tileSize), Color.White);
-                    totalSprites++;
+                    var tileData = world.GetTileAt(x, y);
+                    
                 }
             }
 
-            Console.WriteLine(totalSprites);
-
             spriteBatch.End();
-
-            Vector2 bluePosition = new Vector2(
-                (float)Math.Cos(blueAngle) * distance,
-                (float)Math.Sin(blueAngle) * distance);
-            Vector2 greenPosition = new Vector2(
-                            (float)Math.Cos(greenAngle) * distance,
-                            (float)Math.Sin(greenAngle) * distance);
-            Vector2 redPosition = new Vector2(
-                            (float)Math.Cos(redAngle) * distance,
-                            (float)Math.Sin(redAngle) * distance);
-
-            Vector2 center = new Vector2(300, 140);
-
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
-
-            spriteBatch.Draw(blue, center + bluePosition, Color.White);
-            spriteBatch.Draw(green, center + greenPosition, Color.White);
-            spriteBatch.Draw(red, center + redPosition, Color.White);
-
-            spriteBatch.End();
-
-            //This should be inside of the begin/end and not do it itself
-            animatedSprite.Draw(spriteBatch, ballPosition);
-
-            base.Draw(gameTime);
         }
+
+        ///// <summary>
+        ///// This is called when the game should draw itself.
+        ///// </summary>
+        ///// <param name="gameTime">Provides a snapshot of timing values.</param>
+        //protected override void Draw(GameTime gameTime)
+        //{
+        //    GraphicsDevice.Clear(Color.Black);
+
+        //    spriteBatch.Begin();
+
+        //    spriteBatch.Draw(
+        //        ballTexture,
+        //        ballPosition,
+        //        null,
+        //        Color.White,
+        //        0f,
+        //        new Vector2(ballTexture.Width / 2, ballTexture.Height / 2),
+        //        Vector2.One,
+        //        SpriteEffects.None,
+        //        0f
+        //        );
+
+        //    spriteBatch.DrawString(font, fps, new Vector2(10, 10), Color.White);
+        //    Console.WriteLine(fps);
+
+        //    Vector2 location = new Vector2(400, 240);
+        //    Rectangle sourceRectangle = new Rectangle(0, 0, arrow.Width, arrow.Height);
+        //    Vector2 origin = new Vector2(arrow.Width / 2, arrow.Height / 2);
+
+        //    spriteBatch.Draw(arrow, location, sourceRectangle, Color.White, angle, origin, 1.0f, SpriteEffects.None, 1);
+
+        //    float tileSize = 8;
+
+        //    int tilesWidth = (int)Math.Round(graphics.PreferredBackBufferWidth / tileSize);
+        //    int tilesHeight = (int)Math.Round(graphics.PreferredBackBufferHeight / tileSize);
+
+        //    int totalSprites = 0;
+
+        //    for (int i = 0; i < tilesWidth; i++)
+        //    {
+        //        for (int j = 0; j < tilesHeight; j++)
+        //        {
+        //            spriteBatch.Draw(smile, new Vector2(i * tileSize, j * tileSize), Color.White);
+        //            totalSprites++;
+        //        }
+        //    }
+
+        //    Console.WriteLine(totalSprites);
+
+        //    spriteBatch.End();
+
+        //    Vector2 bluePosition = new Vector2(
+        //        (float)Math.Cos(blueAngle) * distance,
+        //        (float)Math.Sin(blueAngle) * distance);
+        //    Vector2 greenPosition = new Vector2(
+        //                    (float)Math.Cos(greenAngle) * distance,
+        //                    (float)Math.Sin(greenAngle) * distance);
+        //    Vector2 redPosition = new Vector2(
+        //                    (float)Math.Cos(redAngle) * distance,
+        //                    (float)Math.Sin(redAngle) * distance);
+
+        //    Vector2 center = new Vector2(300, 140);
+
+        //    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
+
+        //    spriteBatch.Draw(blue, center + bluePosition, Color.White);
+        //    spriteBatch.Draw(green, center + greenPosition, Color.White);
+        //    spriteBatch.Draw(red, center + redPosition, Color.White);
+
+        //    spriteBatch.End();
+
+        //    //This should be inside of the begin/end and not do it itself
+        //    animatedSprite.Draw(spriteBatch, ballPosition);
+
+        //    base.Draw(gameTime);
+        //}
     }
 }

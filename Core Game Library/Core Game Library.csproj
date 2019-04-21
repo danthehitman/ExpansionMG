@@ -45,17 +45,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entity\BaseEntity.cs" />
+    <Compile Include="Entity\HumanEntity.cs" />
+    <Compile Include="Entity\Work\Job.cs" />
+    <Compile Include="Entity\Work\JobManager.cs" />
     <Compile Include="GameWorld.cs" />
     <Compile Include="Graphics\AnimatedSprite.cs" />
+    <Compile Include="Model\Item\ItemCompass.cs" />
+    <Compile Include="Model\Resource\BaseResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpriteContants.cs" />
+    <Compile Include="StringContants.cs" />
     <Compile Include="Utilities\FrameCounter.cs" />
-    <Compile Include="WorldGen\Generator.cs" />
-    <Compile Include="WorldGen\MapData.cs" />
-    <Compile Include="WorldGen\River.cs" />
-    <Compile Include="WorldGen\TextureGenerator.cs" />
-    <Compile Include="WorldGen\TileGroup.cs" />
-    <Compile Include="WorldGen\WorldGenEnums.cs" />
-    <Compile Include="WorldGen\WrappingWorldGenerator.cs" />
+    <Compile Include="Model\IInventoryObject.cs" />
+    <Compile Include="Model\Inventory.cs" />
+    <Compile Include="Model\Item\BaseItem.cs" />
+    <Compile Include="WorldMap\Generator.cs" />
+    <Compile Include="WorldMap\MapData.cs" />
+    <Compile Include="WorldMap\River.cs" />
+    <Compile Include="WorldMap\TileGroup.cs" />
+    <Compile Include="WorldMap\Tile\BaseTile.cs" />
+    <Compile Include="WorldMap\Tile\TerrainInfo.cs" />
+    <Compile Include="WorldMap\Tile\TileCache.cs" />
+    <Compile Include="WorldMap\Tile\TileDirectionEnum.cs" />
+    <Compile Include="WorldMap\Tile\TileExplorationResults.cs" />
+    <Compile Include="WorldMap\Tile\TileResourceInfo.cs" />
+    <Compile Include="WorldMap\WorldGenEnums.cs" />
+    <Compile Include="WorldMap\WrappingWorldGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AccidentalNoise\AccidentalNoise.csproj">
