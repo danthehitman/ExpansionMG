@@ -98,19 +98,19 @@ namespace HML.Expansion.WorldMap
             }
         }
 
-        protected override BaseTile GetTop(BaseTile t)
+        protected override WorldTile GetTop(WorldTile t)
         {
             return Tiles[t.X, MathUtilities.Mod(t.Y - 1, height)];
         }
-        protected override BaseTile GetBottom(BaseTile t)
+        protected override WorldTile GetBottom(WorldTile t)
         {
             return Tiles[t.X, MathUtilities.Mod(t.Y + 1, height)];
         }
-        protected override BaseTile GetLeft(BaseTile t)
+        protected override WorldTile GetLeft(WorldTile t)
         {
             return Tiles[MathUtilities.Mod(t.X - 1, height), t.Y];
         }
-        protected override BaseTile GetRight(BaseTile t)
+        protected override WorldTile GetRight(WorldTile t)
         {
             return Tiles[MathUtilities.Mod(t.X + 1, height), t.Y];
         }

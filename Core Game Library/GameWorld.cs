@@ -5,7 +5,7 @@ namespace HML.Expansion
 {
     public class GameWorld
     {
-        private BaseTile[,] tiles;
+        private WorldTile[,] tiles;
         private int key = -1;
         public GameWorld()
         {
@@ -13,7 +13,7 @@ namespace HML.Expansion
             tiles = worldGen.Tiles;
         }
 
-        public BaseTile GetTileAt(int x, int y)
+        public WorldTile GetTileAt(int x, int y)
         {
             try
             {
@@ -25,7 +25,7 @@ namespace HML.Expansion
             }
         }
 
-        public BaseTile GetTileAtDirection(int x, int y, TileDirectionEnum direction)
+        public WorldTile GetTileAtDirection(int x, int y, TileDirectionEnum direction)
         {
             switch (direction)
             {

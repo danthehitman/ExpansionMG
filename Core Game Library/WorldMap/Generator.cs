@@ -87,7 +87,7 @@ namespace HML.Expansion.WorldMap
         protected MapData Clouds1;
         protected MapData Clouds2;
 
-        public BaseTile[,] Tiles;
+        public WorldTile[,] Tiles;
 
         protected List<TileGroup> Waters = new List<TileGroup>();
         protected List<TileGroup> Lands = new List<TileGroup>();
@@ -147,10 +147,10 @@ namespace HML.Expansion.WorldMap
         protected abstract void Initialize();
         protected abstract void GetData();
 
-        protected abstract BaseTile GetTop(BaseTile tile);
-        protected abstract BaseTile GetBottom(BaseTile tile);
-        protected abstract BaseTile GetLeft(BaseTile tile);
-        protected abstract BaseTile GetRight(BaseTile tile);
+        protected abstract WorldTile GetTop(WorldTile tile);
+        protected abstract WorldTile GetBottom(WorldTile tile);
+        protected abstract WorldTile GetLeft(WorldTile tile);
+        protected abstract WorldTile GetRight(WorldTile tile);
 
         protected virtual void Generate()
         {
@@ -186,7 +186,7 @@ namespace HML.Expansion.WorldMap
             }
         }
 
-        public BiomeType GetBiomeType(BaseTile tile)
+        public BiomeType GetBiomeType(WorldTile tile)
         {
             return BiomeTable[(int)tile.TerrainData.MoistureType, (int)tile.TerrainData.HeatType];
         }
@@ -200,13 +200,13 @@ namespace HML.Expansion.WorldMap
 
                     if (!Tiles[x, y].TerrainData.Collidable) continue;
 
-                    BaseTile t = Tiles[x, y];
+                    WorldTile t = Tiles[x, y];
                     t.TerrainData.BiomeType = GetBiomeType(t);
                 }
             }
         }
 
-        private void AddMoisture(BaseTile t, int radius)
+        private void AddMoisture(WorldTile t, int radius)
         {
             int startx = MathUtilities.Mod(t.X - radius, width);
             int endx = MathUtilities.Mod(t.X + radius, width);
@@ -234,7 +234,7 @@ namespace HML.Expansion.WorldMap
             }
         }
 
-        private void AddMoisture(BaseTile t, float amount)
+        private void AddMoisture(WorldTile t, float amount)
         {
             MoistureData.Data[t.X, t.Y] += amount;
             t.TerrainData.MoistureValue += amount;
@@ -257,7 +257,7 @@ namespace HML.Expansion.WorldMap
                 for (var y = 0; y < height; y++)
                 {
 
-                    BaseTile t = Tiles[x, y];
+                    WorldTile t = Tiles[x, y];
                     if (t.TerrainData.HeightType == HeightType.River)
                     {
                         AddMoisture(t, (int)60);
@@ -308,7 +308,7 @@ namespace HML.Expansion.WorldMap
             {
                 for (var y = 0; y < height; y++)
                 {
-                    BaseTile t = Tiles[x, y];
+                    WorldTile t = Tiles[x, y];
 
                     if (t.TerrainData.Rivers.Count > 1)
                     {
@@ -358,7 +358,7 @@ namespace HML.Expansion.WorldMap
             }
         }
 
-        public float GetHeightValue(BaseTile tile)
+        public float GetHeightValue(WorldTile tile)
         {
             if (tile == null)
                 return int.MaxValue;
@@ -376,7 +376,7 @@ namespace HML.Expansion.WorldMap
             {
                 foreach (int y in Enumerable.Range(0, height).OrderBy(rr => rng.Next()))
                 {
-                    BaseTile tile = Tiles[x, y];
+                    WorldTile tile = Tiles[x, y];
                     attempts++;
                     // validate the tile
                     if (!tile.TerrainData.Collidable) continue;
@@ -399,7 +399,7 @@ namespace HML.Expansion.WorldMap
                             //Validation failed - remove this river
                             for (int iii = 0; iii < river.Tiles.Count; iii++)
                             {
-                                BaseTile t = river.Tiles[iii];
+                                WorldTile t = river.Tiles[iii];
                                 t.TerrainData.Rivers.Remove(river);
                             }
                         }
@@ -428,10 +428,10 @@ namespace HML.Expansion.WorldMap
             // determine point of intersection
             for (int i = 0; i < river.Tiles.Count; i++)
             {
-                BaseTile t1 = river.Tiles[i];
+                WorldTile t1 = river.Tiles[i];
                 for (int j = 0; j < parent.Tiles.Count; j++)
                 {
-                    BaseTile t2 = parent.Tiles[j];
+                    WorldTile t2 = parent.Tiles[j];
                     if (t1 == t2)
                     {
                         intersectionID = i;
@@ -525,7 +525,7 @@ namespace HML.Expansion.WorldMap
             for (int i = river.Tiles.Count - 1; i >= 0; i--)
             {
 
-                BaseTile t = river.Tiles[i];
+                WorldTile t = river.Tiles[i];
 
                 if (counter < count1 && MaxRiverSize > 3)
                 {
@@ -610,7 +610,7 @@ namespace HML.Expansion.WorldMap
             // Dig it out
             for (int i = river.Tiles.Count - 1; i >= 0; i--)
             {
-                BaseTile t = river.Tiles[i];
+                WorldTile t = river.Tiles[i];
 
                 if (counter < count1 && MaxRiverSize > 3)
                 {
@@ -636,7 +636,7 @@ namespace HML.Expansion.WorldMap
             }
         }
 
-        private void FindPathToWater(BaseTile tile, Direction direction, ref River river)
+        private void FindPathToWater(WorldTile tile, Direction direction, ref River river)
         {
             if (tile.TerrainData.Rivers.Contains(river))
                 return;
@@ -648,10 +648,10 @@ namespace HML.Expansion.WorldMap
             river.AddTile(tile);
 
             // get neighbors
-            BaseTile left = GetLeft(tile);
-            BaseTile right = GetRight(tile);
-            BaseTile top = GetTop(tile);
-            BaseTile bottom = GetBottom(tile);
+            WorldTile left = GetLeft(tile);
+            WorldTile right = GetRight(tile);
+            WorldTile top = GetTop(tile);
+            WorldTile bottom = GetBottom(tile);
 
             float leftValue = int.MaxValue;
             float rightValue = int.MaxValue;
@@ -753,13 +753,13 @@ namespace HML.Expansion.WorldMap
         // Build a Tile array from our data
         private void LoadTiles()
         {
-            Tiles = new BaseTile[width, height];
+            Tiles = new WorldTile[width, height];
 
             for (var x = 0; x < width; x++)
             {
                 for (var y = 0; y < height; y++)
                 {
-                    BaseTile t = new BaseTile(world, x, y);
+                    WorldTile t = new WorldTile(world, x, y);
                     t.X = x;
                     t.Y = y;
 
@@ -885,7 +885,7 @@ namespace HML.Expansion.WorldMap
             {
                 for (var y = 0; y < height; y++)
                 {
-                    BaseTile t = Tiles[x, y];
+                    WorldTile t = Tiles[x, y];
 
                     t.Top = GetTop(t);
                     t.Bottom = GetBottom(t);
@@ -909,14 +909,14 @@ namespace HML.Expansion.WorldMap
         private void FloodFill()
         {
             // Use a stack instead of recursion
-            Stack<BaseTile> stack = new Stack<BaseTile>();
+            Stack<WorldTile> stack = new Stack<WorldTile>();
 
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
                 {
 
-                    BaseTile t = Tiles[x, y];
+                    WorldTile t = Tiles[x, y];
 
                     //Tile already flood filled, skip
                     if (t.TerrainData.FloodFilled) continue;
@@ -955,7 +955,7 @@ namespace HML.Expansion.WorldMap
             }
         }
 
-        private void FloodFill(BaseTile tile, ref TileGroup tiles, ref Stack<BaseTile> stack)
+        private void FloodFill(WorldTile tile, ref TileGroup tiles, ref Stack<WorldTile> stack)
         {
             // Validate
             if (tile == null)
@@ -972,7 +972,7 @@ namespace HML.Expansion.WorldMap
             tile.TerrainData.FloodFilled = true;
 
             // floodfill into neighbors
-            BaseTile t = GetTop(tile);
+            WorldTile t = GetTop(tile);
             if (t != null && !t.TerrainData.FloodFilled && tile.TerrainData.Collidable == t.TerrainData.Collidable)
                 stack.Push(t);
             t = GetBottom(tile);
@@ -986,7 +986,7 @@ namespace HML.Expansion.WorldMap
                 stack.Push(t);
         }
 
-        private Direction GetLowestNeighbor(BaseTile tile)
+        private Direction GetLowestNeighbor(WorldTile tile)
         {
             float left = GetHeightValue(tile.Left);
             float right = GetHeightValue(tile.Right);

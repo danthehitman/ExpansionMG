@@ -6,21 +6,22 @@ using HML.Expansion.Model;
 using HML.Expansion.Common.Extensions;
 using HML.Expansion.Common;
 using HML.Expansion.Model.Item;
+using HML.Expansion.Graphics;
 
 namespace HML.Expansion.WorldMap.Tile
 {
 
-    public class BaseTile : INotifyPropertyChanged
+    public class WorldTile : INotifyPropertyChanged, IRenderable2D
     {
         protected Random random = new Random();
 
         public TerrainInfo TerrainData { get; set; }
         public TileResourceInfo TileResourceData { get; set; }
 
-        public BaseTile Left { get; set; }
-        public BaseTile Right { get; set; }
-        public BaseTile Top { get; set; }
-        public BaseTile Bottom { get; set; }
+        public WorldTile Left { get; set; }
+        public WorldTile Right { get; set; }
+        public WorldTile Top { get; set; }
+        public WorldTile Bottom { get; set; }
 
         public TileCache Cache { get; set; }
 
@@ -31,13 +32,13 @@ namespace HML.Expansion.WorldMap.Tile
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public GameWorld World { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
 
-        public BaseTile(GameWorld world, int x, int y)
+        public Sprite Sprite { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public WorldTile(int x, int y)
         {
-            World = world;
             X = x;
             Y = y;
             TerrainData = new TerrainInfo();
@@ -287,7 +288,7 @@ namespace HML.Expansion.WorldMap.Tile
             }
         }
 
-        public TileExplorationResults ExploreTile(HumanEntity entity, BaseTile tile)
+        public TileExplorationResults ExploreTile(HumanEntity entity, WorldTile tile)
         {
             var results = new TileExplorationResults();
             //Determine tile properties
@@ -300,7 +301,7 @@ namespace HML.Expansion.WorldMap.Tile
             return results;
         }
 
-        private void DetermineExplorationEvents(HumanEntity entity, BaseTile tile,
+        private void DetermineExplorationEvents(HumanEntity entity, WorldTile tile,
             TileExplorationResults explorationResults)
         {
             var roll = 0f;
@@ -323,7 +324,7 @@ namespace HML.Expansion.WorldMap.Tile
             DetermineCatastrophe(tile, entity, explorationResults);
         }
 
-        private void DetermineCatastrophe(BaseTile tile, HumanEntity entity,
+        private void DetermineCatastrophe(WorldTile tile, HumanEntity entity,
             TileExplorationResults explorationResults)
         {
             var severityPercent = random.NextFloatInRange(0f, 1f);
@@ -421,7 +422,7 @@ namespace HML.Expansion.WorldMap.Tile
 
         }
 
-        private static float DetermineTileLostAndSpecialDiscoveryModifier(BaseTile tile, bool ignoreNeighborModifiers = false)
+        private static float DetermineTileLostAndSpecialDiscoveryModifier(WorldTile tile, bool ignoreNeighborModifiers = false)
         {
             var biomeType = tile.TerrainData.BiomeType;
             var heightType = tile.TerrainData.HeightType;
@@ -473,7 +474,7 @@ namespace HML.Expansion.WorldMap.Tile
             return result;
         }
 
-        private static float GetExplorationTime(BaseTile tile, HumanEntity entity)
+        private static float GetExplorationTime(WorldTile tile, HumanEntity entity)
         {
             var biomeType = tile.TerrainData.BiomeType;
             var heightType = tile.TerrainData.HeightType;
@@ -538,7 +539,7 @@ namespace HML.Expansion.WorldMap.Tile
             return result + adjustment;
         }
 
-        private static Inventory ForageTile(HumanEntity entity, BaseTile tile)
+        private Inventory ForageTile(HumanEntity entity)
         {
             var inventory = new Inventory();
             var resourceHaul = 0;
@@ -709,7 +710,7 @@ namespace HML.Expansion.WorldMap.Tile
             return resourceFinal;
         }
 
-        private void RevealTile(HumanEntity entity, BaseTile tile)
+        private void RevealTile(HumanEntity entity, WorldTile tile)
         {
             var biomeType = tile.TerrainData.BiomeType;
             switch (biomeType)
@@ -739,7 +740,7 @@ namespace HML.Expansion.WorldMap.Tile
             }
         }
 
-        private void RevealDesert(BaseTile tile, HumanEntity entity)
+        private void RevealDesert(WorldTile tile, HumanEntity entity)
         {
             tile.TileResourceData.Bark = CalculateResourceAvailabilityMultiplier(
                 0.5f);
@@ -781,7 +782,7 @@ namespace HML.Expansion.WorldMap.Tile
                 0.25f);
         }
 
-        private void RevealSavanna(BaseTile tile, HumanEntity entity)
+        private void RevealSavanna(WorldTile tile, HumanEntity entity)
         {
             tile.TileResourceData.Bark = CalculateResourceAvailabilityMultiplier(
                 1f);
@@ -828,6 +829,68 @@ namespace HML.Expansion.WorldMap.Tile
             var roll = random.NextFloatInRange(0.5f, 2f);
             var resourceFinal = (float)(resourceBase * roll);
             return resourceFinal;
+        }
+
+        public Sprite GetTileSprite()
+        {
+            BiomeType value = tile.TerrainData.BiomeType;
+            Sprite sprite = null;
+
+            if (tile.TerrainData.HeightType == HeightType.DeepWater)
+            {
+                sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_DEEP_WATER);
+            }
+            else if (tile.TerrainData.HeightType == HeightType.ShallowWater)
+            {
+                sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_SHALLOW_WATER);
+            }
+            else if (tile.TerrainData.HeightType == HeightType.Rock)
+            {
+                sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_MOUNTAIN);
+            }
+            else if (tile.TerrainData.HeightType == HeightType.River)
+            {
+                sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_RIVER);
+            }
+            else
+            {
+                switch (value)
+                {
+                    case BiomeType.Ice:
+                        sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_ICE);
+                        break;
+                    case BiomeType.BorealForest:
+                        sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_BOREAL_FOREST);
+                        break;
+                    case BiomeType.Desert:
+                        sprite = GetRandomTileVarietySpriteByWeight(
+                            SpriteManager.Instance.GetSpritesByKey(Constants.TILE_KEY_DESERT), rand);
+                        break;
+                    case BiomeType.Grassland:
+                        sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_GRASSLAND);
+                        break;
+                    case BiomeType.SeasonalForest:
+                        sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_SEASONAL_FOREST);
+                        break;
+                    case BiomeType.Tundra:
+                        sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_TUNDRA);
+                        break;
+                    case BiomeType.Savanna:
+                        sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_SAVANNA);
+                        break;
+                    case BiomeType.TemperateRainforest:
+                        sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_TEMPERATE_RAINFOREST);
+                        break;
+                    case BiomeType.TropicalRainforest:
+                        sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_TROPICAL_RAINFOREST);
+                        break;
+                    case BiomeType.Woodland:
+                        sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_WOODLAND);
+                        break;
+                }
+            }
+
+            return sprite;
         }
     }
 }

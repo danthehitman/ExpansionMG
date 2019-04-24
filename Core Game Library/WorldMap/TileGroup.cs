@@ -13,11 +13,11 @@ namespace HML.Expansion.WorldMap
     {
 
         public TileGroupType Type;
-        public List<BaseTile> Tiles;
+        public List<WorldTile> Tiles;
 
         public TileGroup()
         {
-            Tiles = new List<BaseTile>();
+            Tiles = new List<WorldTile>();
         }
     }
 }

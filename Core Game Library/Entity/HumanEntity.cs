@@ -174,7 +174,7 @@ namespace HML.Expansion.Entity
             Morale = 100f;
         }
 
-        public void MoveEntityToTile(BaseTile tile)
+        public void MoveEntityToTile(WorldTile tile)
         {
             SetPosition(tile.X, tile.Y);
         }

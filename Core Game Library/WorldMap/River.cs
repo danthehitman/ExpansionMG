@@ -15,7 +15,7 @@ namespace HML.Expansion.WorldMap
     {
 
         public int Length;
-        public List<BaseTile> Tiles;
+        public List<WorldTile> Tiles;
         public int ID;
 
         public int Intersections;
@@ -25,10 +25,10 @@ namespace HML.Expansion.WorldMap
         public River(int id)
         {
             ID = id;
-            Tiles = new List<BaseTile>();
+            Tiles = new List<WorldTile>();
         }
 
-        public void AddTile(BaseTile tile)
+        public void AddTile(WorldTile tile)
         {
             tile.SetRiverPath(this);
             Tiles.Add(tile);

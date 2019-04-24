@@ -51,6 +51,9 @@
     <Compile Include="Entity\Work\JobManager.cs" />
     <Compile Include="GameWorld.cs" />
     <Compile Include="Graphics\AnimatedSprite.cs" />
+    <Compile Include="Graphics\IRenderable2D.cs" />
+    <Compile Include="Graphics\Sprite.cs" />
+    <Compile Include="Graphics\TextureService.cs" />
     <Compile Include="Model\Item\ItemCompass.cs" />
     <Compile Include="Model\Resource\BaseResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -64,7 +67,7 @@
     <Compile Include="WorldMap\MapData.cs" />
     <Compile Include="WorldMap\River.cs" />
     <Compile Include="WorldMap\TileGroup.cs" />
-    <Compile Include="WorldMap\Tile\BaseTile.cs" />
+    <Compile Include="WorldMap\Tile\WorldTile.cs" />
     <Compile Include="WorldMap\Tile\TerrainInfo.cs" />
     <Compile Include="WorldMap\Tile\TileCache.cs" />
     <Compile Include="WorldMap\Tile\TileDirectionEnum.cs" />
