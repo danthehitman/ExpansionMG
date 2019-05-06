@@ -11,8 +11,10 @@ using HML.Expansion.Graphics;
 namespace HML.Expansion.WorldMap.Tile
 {
 
-    public class WorldTile : INotifyPropertyChanged, IRenderable2D
+    public class WorldTile : INotifyPropertyChanged
     {
+        public Renderable2D Renderable2D;
+
         protected Random random = new Random();
 
         public TerrainInfo TerrainData { get; set; }
@@ -34,8 +36,6 @@ namespace HML.Expansion.WorldMap.Tile
 
         public int X { get; set; }
         public int Y { get; set; }
-
-        public Sprite Sprite { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public WorldTile(int x, int y)
         {
