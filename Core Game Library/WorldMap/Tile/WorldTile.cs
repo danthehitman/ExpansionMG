@@ -13,10 +13,7 @@ namespace HML.Expansion.WorldMap.Tile
 
     public class WorldTile : INotifyPropertyChanged
     {
-        public Renderable2D Renderable2D;
-
         protected Random random = new Random();
-
         public TerrainInfo TerrainData { get; set; }
         public TileResourceInfo TileResourceData { get; set; }
 
@@ -829,68 +826,6 @@ namespace HML.Expansion.WorldMap.Tile
             var roll = random.NextFloatInRange(0.5f, 2f);
             var resourceFinal = (float)(resourceBase * roll);
             return resourceFinal;
-        }
-
-        public Sprite GetTileSprite()
-        {
-            BiomeType value = tile.TerrainData.BiomeType;
-            Sprite sprite = null;
-
-            if (tile.TerrainData.HeightType == HeightType.DeepWater)
-            {
-                sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_DEEP_WATER);
-            }
-            else if (tile.TerrainData.HeightType == HeightType.ShallowWater)
-            {
-                sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_SHALLOW_WATER);
-            }
-            else if (tile.TerrainData.HeightType == HeightType.Rock)
-            {
-                sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_MOUNTAIN);
-            }
-            else if (tile.TerrainData.HeightType == HeightType.River)
-            {
-                sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_RIVER);
-            }
-            else
-            {
-                switch (value)
-                {
-                    case BiomeType.Ice:
-                        sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_ICE);
-                        break;
-                    case BiomeType.BorealForest:
-                        sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_BOREAL_FOREST);
-                        break;
-                    case BiomeType.Desert:
-                        sprite = GetRandomTileVarietySpriteByWeight(
-                            SpriteManager.Instance.GetSpritesByKey(Constants.TILE_KEY_DESERT), rand);
-                        break;
-                    case BiomeType.Grassland:
-                        sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_GRASSLAND);
-                        break;
-                    case BiomeType.SeasonalForest:
-                        sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_SEASONAL_FOREST);
-                        break;
-                    case BiomeType.Tundra:
-                        sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_TUNDRA);
-                        break;
-                    case BiomeType.Savanna:
-                        sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_SAVANNA);
-                        break;
-                    case BiomeType.TemperateRainforest:
-                        sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_TEMPERATE_RAINFOREST);
-                        break;
-                    case BiomeType.TropicalRainforest:
-                        sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_TROPICAL_RAINFOREST);
-                        break;
-                    case BiomeType.Woodland:
-                        sprite = SpriteManager.Instance.GetSpriteByName(Constants.TILE_WOODLAND);
-                        break;
-                }
-            }
-
-            return sprite;
         }
     }
 }

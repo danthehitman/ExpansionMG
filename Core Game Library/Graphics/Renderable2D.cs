@@ -6,7 +6,5 @@ namespace HML.Expansion.Graphics
     public class Renderable2D
     {
         public Texture2D Sprite { get; set; }
-        public Vector3 Position { get; set; }
-
     }
 }

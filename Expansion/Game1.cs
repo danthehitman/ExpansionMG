@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 
 namespace HML.Expansion
 {
@@ -12,6 +13,8 @@ namespace HML.Expansion
     /// </summary>
     public class Game1 : Game
     {
+        Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
+
         GameWorld world;
 
         Random random = new Random();
@@ -53,8 +56,6 @@ namespace HML.Expansion
         
         public Game1()
         {
-            world = new GameWorld();
-
             graphics = new GraphicsDeviceManager(this);
 
             //Unlock framerate.
@@ -73,8 +74,10 @@ namespace HML.Expansion
         /// </summary>
         protected override void Initialize()
         {
-            ballPosition = new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2);
-            ballSpeed = 100f;
+            world = new GameWorld();
+
+            //ballPosition = new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2);
+            //ballSpeed = 100f;
 
             base.Initialize();
         }
@@ -85,24 +88,23 @@ namespace HML.Expansion
         /// </summary>
         protected override void LoadContent()
         {
-
-            // Create a new SpriteBatch, which can be used to draw textures.
+            textures = AssetLoader.LoadTextures(Content);
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            ballTexture = Content.Load<Texture2D>("ball");
+            //ballTexture = Content.Load<Texture2D>("ball");
 
-            font = Content.Load<SpriteFont>("Fonts/fps");
+            //font = Content.Load<SpriteFont>("Fonts/fps");
 
-            Texture2D texture = Content.Load<Texture2D>("SmileyWalk");
-            animatedSprite = new AnimatedSprite(texture, 4, 4);
+            //Texture2D texture = Content.Load<Texture2D>("SmileyWalk");
+            //animatedSprite = new AnimatedSprite(texture, 4, 4);
 
-            arrow = Content.Load<Texture2D>("arrow");
+            //arrow = Content.Load<Texture2D>("arrow");
 
-            blue = Content.Load<Texture2D>("blue");
-            green = Content.Load<Texture2D>("green");
-            red = Content.Load<Texture2D>("red");
+            //blue = Content.Load<Texture2D>("blue");
+            //green = Content.Load<Texture2D>("green");
+            //red = Content.Load<Texture2D>("red");
 
-            smile = Content.Load<Texture2D>("test2");
+            //smile = Content.Load<Texture2D>("test2");
         }
 
         /// <summary>

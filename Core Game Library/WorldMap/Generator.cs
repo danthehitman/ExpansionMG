@@ -759,7 +759,7 @@ namespace HML.Expansion.WorldMap
             {
                 for (var y = 0; y < height; y++)
                 {
-                    WorldTile t = new WorldTile(world, x, y);
+                    WorldTile t = new WorldTile(x, y);
                     t.X = x;
                     t.Y = y;
 

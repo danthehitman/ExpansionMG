@@ -10,7 +10,7 @@ namespace HML.Expansion
     {
         public const string ALL_PROPERTIES_PROPERTY_NAME = "All";
         
-        public const string CONTENT_IMAGES_FOLDER = "images";
-        public const string CONTENT_TERRAIN_FOLDER = "terrain";
+        public const string CONTENT_IMAGES_PATH = "images";
+        public const string CONTENT_TERRAIN_PATH = "images/terrain/";
     }
 }
