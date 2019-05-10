@@ -47,18 +47,19 @@
   <ItemGroup>
     <Compile Include="Entity\BaseEntity.cs" />
     <Compile Include="Entity\HumanEntity.cs" />
+    <Compile Include="Entity\MapTile.cs" />
     <Compile Include="Entity\Work\Job.cs" />
     <Compile Include="Entity\Work\JobManager.cs" />
     <Compile Include="GameWorld.cs" />
     <Compile Include="Graphics\AnimatedSprite.cs" />
-    <Compile Include="Graphics\IRenderable2D.cs" />
+    <Compile Include="Graphics\Renderable2D.cs" />
     <Compile Include="Graphics\Sprite.cs" />
-    <Compile Include="Graphics\TextureService.cs" />
     <Compile Include="Model\Item\ItemCompass.cs" />
     <Compile Include="Model\Resource\BaseResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpriteContants.cs" />
     <Compile Include="StringContants.cs" />
+    <Compile Include="Utilities\AssetLoader.cs" />
     <Compile Include="Utilities\FrameCounter.cs" />
     <Compile Include="Model\IInventoryObject.cs" />
     <Compile Include="Model\Inventory.cs" />
